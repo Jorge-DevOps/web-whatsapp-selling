@@ -3,13 +3,14 @@
  */
 
 import pkg from 'whatsapp-web.js';
-const { Client, LocalAuth } = pkg; 
+const { Client, LocalAuth, MessageMedia } = pkg;
 import qrcode from 'qrcode-terminal';
 import dotenv from 'dotenv';
+import fs from 'fs';
 import Menu from './menu.js';
 import Handlers from './handlers.js';
 import InputValidator from './utils/validation.js';
-import SessionManager from './utils/sessionManager.js';
+import { SessionManager } from './utils/sessionManager.js';
 
 dotenv.config();
 
@@ -68,7 +69,7 @@ client.on('message', async (message) => {
         }
         else if (session.stage === 'menu') {
             // Usuario en menú principal
-            if (!InputValidator.isValidMenuOption(userInput, 0, 9)) {
+            if (!InputValidator.isValidMenuOption(userInput, 0, 10)) {
                 await message.reply(Menu.invalidOptionMessage());
                 return;
             }
@@ -79,12 +80,70 @@ client.on('message', async (message) => {
                 // Volver al menú
                 await message.reply(Menu.mainMenu());
             }
+            else if (option === 2) {
+                // Opción de Ver fotos - mostrar submenu
+                sessionManager.updateSession(userId, { stage: 'photos_menu', viewingOption: option });
+                await message.reply(Menu.photosMenu());
+            }
             else {
-                // Procesar opciones 1-9
+                // Procesar opciones 1, 3-10 (excepto 2 que tiene submenu)
                 const response = processMenuOption(option);
-                sessionManager.updateSession(userId, { viewingOption: option });
+                sessionManager.updateSession(userId, { viewingOption: option, stage: 'menu' });
                 await message.reply(response);
-                await message.reply(Menu.backToMenuMessage());
+                await message.reply(Menu.mainMenu());
+            }
+        }
+        else if (session.stage === 'photos_menu') {
+            // Usuario en menú de fotos
+            if (!InputValidator.isValidMenuOption(userInput, 0, 9)) {
+                await message.reply(Menu.invalidOptionMessage());
+                return;
+            }
+
+            const option = parseInt(userInput);
+
+            if (option === 0) {
+                // Volver al menú principal
+                sessionManager.updateSession(userId, { stage: 'menu' });
+                await message.reply(Menu.mainMenu());
+            }
+            else {
+                // Procesar opciones de fotos (1-9)
+                const photoData = Handlers.getPhotosForSection(option);
+
+                if (!photoData) {
+                    await message.reply(Menu.invalidOptionMessage());
+                    return;
+                }
+
+                // Enviar mensaje de texto
+                await message.reply(photoData.text);
+
+                // Enviar imágenes si existen
+                if (photoData.images && photoData.images.length > 0) {
+                    for (const imagePath of photoData.images) {
+                        try {
+                            const imageData = fs.readFileSync(imagePath);
+                            const base64Data = imageData.toString('base64');
+                            const ext = imagePath.split('.').pop().toLowerCase();
+                            const mimeType = {
+                                'jpg': 'image/jpeg',
+                                'jpeg': 'image/jpeg',
+                                'png': 'image/png',
+                                'gif': 'image/gif',
+                                'webp': 'image/webp'
+                            }[ext] || 'image/jpeg';
+
+                            const media = new MessageMedia(mimeType, base64Data);
+                            await message.reply(media);
+                        } catch (imageError) {
+                            console.error('Error enviando imagen:', imageError);
+                        }
+                    }
+                }
+
+                // Volver a mostrar el menú de fotos
+                await message.reply(Menu.photosMenu());
             }
         }
     }
@@ -97,7 +156,7 @@ client.on('message', async (message) => {
 });
 
 /**
- * Procesa las opciones del menú (1-9)
+ * Procesa las opciones del menú (1-10)
  */
 function processMenuOption(option) {
     const handlerMap = {
@@ -109,7 +168,8 @@ function processMenuOption(option) {
         6: () => Handlers.handleOption6(),
         7: () => Handlers.handleOption7(),
         8: () => Handlers.handleOption8(),
-        9: () => Handlers.handleOption9()
+        9: () => Handlers.handleOption9(),
+        10: () => Handlers.handleOption10()
     };
 
     const handler = handlerMap[option];

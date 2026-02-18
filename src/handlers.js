@@ -3,9 +3,11 @@
  */
 
 import { MessageFormatter } from './utils/formatter.js';
+import { ImageManager } from './utils/imageManager.js';
 import propertyData from './data/property.json' with { type: 'json' };
 
 export class Handlers {
+
     /**
      * Obtiene la propiedad principal
      */
@@ -18,39 +20,24 @@ export class Handlers {
      */
     static handleOption1() {
         const property = this.getMainProperty();
-        return `
-💰 VALOR DEL ARRIENDO
+        return (
+            `💰 *VALOR DEL ARRIENDO*
 
-Canon mensual: ${MessageFormatter.formatCOP(property.rent)}
+🏷️ Canon mensual: *${MessageFormatter.formatCOP(property.rent)}*
 
-ℹ️  La administración está incluida en el valor.
+ℹ️ *La administración está incluida*
 
-Piso: ${property.floor}
-Estrato: ${property.stratum}
-Estado: ${property.status}
-`;
+🏢 Piso: ${property.floor}
+📊 Estrato: ${property.stratum}
+✅ Estado: ${property.status}`
+        );
     }
 
     /**
      * Opción 2: Ver fotos
      */
     static handleOption2() {
-        const property = this.getMainProperty();
-        let message = `
-📸 FOTOS DEL APARTAMENTO
-
-Aquí puedes ver las imágenes del inmueble:
-
-`;
-        // En una implementación real, se enviarían las imágenes
-        property.images.forEach((image, index) => {
-            message += `${index + 1}. ${image}\n`;
-        });
-
-        message += `
-[En una aplicación completa, se enviarían las imágenes reales aquí]
-`;
-        return message;
+        return null; // Muestra submenu de fotos
     }
 
     /**
@@ -58,8 +45,8 @@ Aquí puedes ver las imágenes del inmueble:
      */
     static handleOption3() {
         const property = this.getMainProperty();
-        return `
-ℹ️  INFORMACIÓN GENERAL
+        return (
+            `ℹ️ *INFORMACIÓN GENERAL*
 
 📍 Ubicación: ${property.location}
 🏠 Área: ${MessageFormatter.formatArea(property.area)}
@@ -68,46 +55,40 @@ Aquí puedes ver las imágenes del inmueble:
 📊 Estrato: ${property.stratum}
 ✅ Estado: ${property.status}
 
-${property.description}
-`;
+📝 ${property.description}`
+        );
     }
 
     /**
      * Opción 4: Interiores
      */
     static handleOption4() {
-        const property = this.getMainProperty();
-        const { kitchen, flooring, bathrooms } = property.interiors;
+        const { kitchen, flooring, bathrooms } = this.getMainProperty().interiors;
 
-        return `
-🛋️  INTERIORES
+        return (
+            `🛋️ *INTERIORES*
 
-• Cocina: ${kitchen}
-• Pisos: ${flooring}
-• Baños: ${bathrooms}
+🍳 Cocina: ${kitchen}
+🪵 Pisos: ${flooring}
+🚿 Baños: ${bathrooms}
 
-Todos los acabados son de primera calidad con materiales duraderos.
-`;
+✨ Acabados de primera calidad con materiales duraderos`
+        );
     }
 
     /**
      * Opción 5: Zonas comunes
      */
     static handleOption5() {
-        const property = this.getMainProperty();
-        const amenities = property.amenities.building;
+        const amenities = this.getMainProperty().amenities.building;
 
-        let message = `
-🏗️  ZONAS COMUNES DEL CONJUNTO
+        let message = `🏗️ *ZONAS COMUNES DEL CONJUNTO*\n\n`;
 
-`;
         amenities.forEach((amenity, index) => {
-            message += `${index + 1}. ${amenity}\n`;
+            message += `✅ ${index + 1}. ${amenity}\n`;
         });
 
-        message += `
-El conjunto está completamente equipado para comodidad de los residentes.
-`;
+        message += `\n🌿 Pensado para la comodidad y bienestar de los residentes`;
         return message;
     }
 
@@ -115,22 +96,15 @@ El conjunto está completamente equipado para comodidad de los residentes.
      * Opción 6: Atributos del sector
      */
     static handleOption6() {
-        const property = this.getMainProperty();
-        const sector = property.amenities.neighborhood;
+        const sector = this.getMainProperty().amenities.neighborhood;
 
-        let message = `
-🌆 ATRIBUTOS DEL SECTOR
+        let message = `🌆 *ATRIBUTOS DEL SECTOR*\n\n📌 La zona cuenta con:\n\n`;
 
-El sector de Suba Tibabuyes es una zona estratégica con acceso a:
-
-`;
         sector.forEach((item, index) => {
-            message += `${index + 1}. ${item}\n`;
+            message += `📍 ${index + 1}. ${item}\n`;
         });
 
-        message += `
-Excelente ubicación para familias y profesionales.
-`;
+        message += `\n👨‍👩‍👧‍👦 Ideal para familias y profesionales`;
         return message;
     }
 
@@ -139,55 +113,124 @@ Excelente ubicación para familias y profesionales.
      */
     static handleOption7() {
         const property = this.getMainProperty();
-        return `
-📍 UBICACIÓN
+        return (
+            `📍 *UBICACIÓN DEL INMUEBLE*
 
-Dirección: ${property.location}
+🏠 Dirección: ${property.location}
 
-La zona de Suba Tibabuyes es conocida por:
-• Seguridad y buena vigilancia
-• Proximidad a centros comerciales
-• Fácil acceso al transporte público
-• Cerca a instituciones educativas de calidad
-• Servicios médicos completos
-https://maps.app.goo.gl/CJyyp5FLhJSBrS9v7
-`;
+🔐 Seguridad y vigilancia
+🛍️ Cercanía a centros comerciales
+🚌 Acceso a transporte público
+🏫 Instituciones educativas cercanas
+🏥 Servicios médicos disponibles
+
+🗺️ Ver en Google Maps:
+https://maps.app.goo.gl/CJyyp5FLhJSBrS9v7`
+        );
     }
 
     /**
      * Opción 8: Agendar visita
      */
     static handleOption8() {
-        return `
-📅 AGENDAR VISITA
+        return (
+            `📅 *AGENDAR VISITA*
 
-Para agendar una visita, por favor comparte:
+Para programar una visita, envíanos:
 
-1. Tu nombre completo
-2. Número telefónico
-3. Fecha y hora preferida
+👤 Nombre completo  
+📞 Número telefónico  
+🕒 Fecha y hora preferida  
 
-Nuestro equipo se contactará para confirmar tu cita.
-`;
+✅ Nuestro equipo confirmará tu cita`
+        );
     }
 
     /**
      * Opción 9: Hablar con asesor
      */
     static handleOption9() {
-        const property = this.getMainProperty();
-        const { advisor, phone, email } = property.contact;
+        return (
+            `👤 *CONTACTO CON EL DUEÑO*
 
-        return `
-👤 CONTACTO CON ASESOR
+📝 Por favor, envía tu pregunta o consulta para el dueño del inmueble.
 
-Asesor: ${advisor}
-📞 Teléfono: ${phone}
-📧 Email: ${email}
+🕘 *Horario de atención:*
+Domingo a domingo | 9:00 AM – 8:00 PM
 
-Puedes contactarlo directamente para consultas especiales.
-Estamos disponibles de lunes a viernes, 9 AM a 6 PM.
-`;
+✅ Te responderemos lo antes posible`
+        );
+    }
+
+    /**
+     * Opción 10: Requisitos del arrendatario
+     */
+    static handleOption10() {
+        return (
+            `🛡️ *REQUISITOS PARA ARRENDAR EL INMUEBLE*
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+*🏠 SEGURO DE ARRENDAMIENTO (OBLIGATORIO)*
+
+✅ Estudio y aprobación por aseguradora
+✅ Cubre canon de arrendamiento
+✅ Cubre posibles daños al inmueble
+✅ Respalda el proceso legal en caso de incumplimiento
+
+⚠️ *Sin aprobación del seguro no es posible continuar con el proceso.*
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+*📄 DOCUMENTOS BÁSICOS*
+
+🪪 Copia de la cédula de ciudadanía (ambas caras)
+📝 Formulario de solicitud (datos personales y laborales)
+📞 Referencias personales y laborales (mínimo 2)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+*💼 SI ES EMPLEADO*
+
+💼 Carta laboral (cargo, tipo de contrato, antigüedad y salario)
+💸 Últimos 2–3 desprendibles de nómina
+🧾 Extractos bancarios (últimos 2–3 meses)
+📞 Referencia personal (nombre y teléfono)
+📞 Referencia laboral o comercial
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+*🏢 SI ES INDEPENDIENTE*
+
+🧾 RUT
+📊 Certificación de ingresos (firmada por contador)
+🧮 Estados financieros (si aplica)
+💸 Extractos bancarios (últimos 3–6 meses)
+🧾 Declaración de renta (si declara)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+✍️ *Autorización para tratamiento de datos personales*`
+        );
+    }
+
+    /**
+     * Submenú de fotos
+     */
+    static getPhotosForSection(sectionNumber) {
+        const sectionPath = ImageManager.getSectionPath(sectionNumber);
+        const sectionName = ImageManager.getSectionName(sectionNumber);
+
+        if (!sectionPath) return null;
+
+        const images = ImageManager.getImagesForSection(sectionPath);
+
+        if (images.length === 0) {
+            return {
+                text: `📸 *${sectionName.toUpperCase()}*\n\n⚠️ Aún no hay imágenes disponibles.`,
+                images: []
+            };
+        }
+
+        return {
+            text: `📸 *${sectionName.toUpperCase()}*\n\n📤 Enviando ${images.length} foto(s)...`,
+            images
+        };
     }
 }
 

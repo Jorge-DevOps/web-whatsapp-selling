@@ -18,7 +18,8 @@ Selecciona una opción escribiendo el número:
 6️⃣  Atributos del sector
 7️⃣  Ubicación
 8️⃣  Agendar visita
-9️⃣  Hablar con asesor
+9️⃣  Hablar con el dueño
+🔟 Requisitos del arrendatario
 0️⃣  Volver al menú principal
 
 Escriba el número de su opción:`;
@@ -26,23 +27,38 @@ Escriba el número de su opción:`;
 
     static welcomeMessage() {
         return `
-Hola, bienvenido a nuestro servicio de inmuebles.
-
-Tenemos un apartamento disponible en Suba Tibabuyes con excelentes características y ubicación estratégica.
-
+Hola, tenemos un apartamento disponible en Suba Tibabuyes con excelentes características y ubicación estratégica.
 ¿Te gustaría conocer más detalles? Escribe cualquier cosa para continuar.`;
     }
 
     static invalidOptionMessage() {
         return `
 ⚠️  Opción no válida.
-
-Por favor, escribe un número del 0 al 9 según el menú.`;
+Por favor, escribe un número del 0 al 10 según el menú.`;
     }
 
     static backToMenuMessage() {
         return `
 Escribe 0 para volver al menú principal o cualquier otro número de opción.`;
+    }
+
+    static photosMenu() {
+        return `
+📸 VER FOTOS POR ÁREA
+
+Selecciona una opción escribiendo el número:
+
+1️⃣  Sala
+2️⃣  Cocina
+3️⃣  Cuarto principal
+4️⃣  Baño principal
+5️⃣  Baño secundario
+6️⃣  Cuartos extras
+7️⃣  Pasillo
+8️⃣  Zonas comunes
+0️⃣  Volver al menú principal
+
+Escriba el número de su opción:`;
     }
 }
 
