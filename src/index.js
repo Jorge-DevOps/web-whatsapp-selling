@@ -69,7 +69,7 @@ client.on('message', async (message) => {
         }
         else if (session.stage === 'menu') {
             // Usuario en menú principal
-            if (!InputValidator.isValidMenuOption(userInput, 0, 10)) {
+            if (!InputValidator.isValidMenuOption(userInput, 0, 11)) {
                 await message.reply(Menu.invalidOptionMessage());
                 return;
             }
@@ -156,7 +156,7 @@ client.on('message', async (message) => {
 });
 
 /**
- * Procesa las opciones del menú (1-10)
+ * Procesa las opciones del menú (1-11)
  */
 function processMenuOption(option) {
     const handlerMap = {
@@ -169,7 +169,8 @@ function processMenuOption(option) {
         7: () => Handlers.handleOption7(),
         8: () => Handlers.handleOption8(),
         9: () => Handlers.handleOption9(),
-        10: () => Handlers.handleOption10()
+        10: () => Handlers.handleOption10(),
+        11: () => Handlers.handleOption11()
     };
 
     const handler = handlerMap[option];

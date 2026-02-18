@@ -20,6 +20,7 @@ Selecciona una opción escribiendo el número:
 8️⃣  Agendar visita
 9️⃣  Hablar con el dueño
 🔟 Requisitos del arrendatario
+1️⃣1️⃣ Iniciar proceso de arrendamiento
 0️⃣  Volver al menú principal
 
 Escriba el número de su opción:`;
@@ -34,7 +35,7 @@ Hola, tenemos un apartamento disponible en Suba Tibabuyes con excelentes caracte
     static invalidOptionMessage() {
         return `
 ⚠️  Opción no válida.
-Por favor, escribe un número del 0 al 10 según el menú.`;
+Por favor, escribe un número del 0 al 11 según el menú.`;
     }
 
     static backToMenuMessage() {

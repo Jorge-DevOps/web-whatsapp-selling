@@ -181,7 +181,6 @@ Domingo a domingo | 9:00 AM – 8:00 PM
 *📄 DOCUMENTOS BÁSICOS*
 
 🪪 Copia de la cédula de ciudadanía (ambas caras)
-📝 Formulario de solicitud (datos personales y laborales)
 📞 Referencias personales y laborales (mínimo 2)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -204,6 +203,53 @@ Domingo a domingo | 9:00 AM – 8:00 PM
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ✍️ *Autorización para tratamiento de datos personales*`
+        );
+    }
+
+    /**
+     * Opción 11: Iniciar proceso de arrendamiento
+     */
+    static handleOption11() {
+        return (
+            `📋 *INICIAR PROCESO DE ARRENDAMIENTO*
+
+Para comenzar el proceso de arrendamiento, necesitamos que proporciones:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+*🏠 SEGURO DE ARRENDAMIENTO*
+
+✅ Estudio y aprobación del seguro de arrendamiento (OBLIGATORIO)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+*📄 DOCUMENTOS DE IDENTIDAD*
+
+🪪 Cédula de ciudadanía (copias ambas caras)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+*📞 REFERENCIAS*
+
+👥 Referencias personales (mínimo 2)
+   - Nombre completo
+   - Teléfono de contacto
+
+👔 Referencias laborales (mínimo 2)
+   - Nombre completo
+   - Teléfono de contacto
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+*💼 SI SOS EMPLEADO*
+
+💼 Carta laboral (cargo, tipo de contrato, antigüedad y salario)
+💸 Últimos 3 desprendibles de nómina
+🧾 Extractos bancarios (últimos 3 meses)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+✉️ *Por favor, envía los documentos digitalizados (PDF o imágenes claras)*
+
+📧 Nuestro equipo procesará tu solicitud lo antes posible.
+
+🕘 Tiempo estimado de respuesta: 3-5 días hábiles`
         );
     }
 
