@@ -55,15 +55,15 @@ if git diff --cached --quiet; then
     echo "ℹ️  No hay cambios para commitar"
 else
     git commit -m "$COMMIT_MSG" \
-        -m "WhatsApp Selling Bot - Bot conversacional para gestionar apartamentos en arriendo" \
-        -m "Incluye:" \
-        -m "- Menú interactivo con 9 opciones" \
-        -m "- Gestión de sesiones múltiples" \
-        -m "- Validación de entradas robusta" \
-        -m "- Arquitectura modular y escalable" \
-        -m "- Docker support" \
-        -m "- Jenkins CI/CD pipeline" \
-        -m "- Documentación completa" || echo "ℹ️  Commit no necesario"
+    -m "WhatsApp Selling Bot - Bot conversacional para gestionar apartamentos en arriendo" \
+    -m "Incluye:" \
+    -m "- Menú interactivo con 9 opciones" \
+    -m "- Gestión de sesiones múltiples" \
+    -m "- Validación de entradas robusta" \
+    -m "- Arquitectura modular y escalable" \
+    -m "- Docker support" \
+    -m "- Jenkins CI/CD pipeline" \
+    -m "- Documentación completa" || echo "ℹ️  Commit no necesario"
     echo "✓ Commit creado"
 fi
 

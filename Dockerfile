@@ -21,7 +21,7 @@ EXPOSE 8080
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
-  CMD node -e "console.log('OK')" || exit 1
+    CMD node -e "console.log('OK')" || exit 1
 
 # Comando para ejecutar el bot
 CMD ["node", "src/index.js"]

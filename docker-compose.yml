@@ -1,5 +1,5 @@
 # Docker Compose para desarrollo y producción
-version: '3.8'
+version: "3.8"
 
 services:
   whatsapp-bot:
@@ -37,7 +37,7 @@ services:
       - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
     command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
+      - "--config.file=/etc/prometheus/prometheus.yml"
     networks:
       - bot_network
     restart: unless-stopped
