@@ -1,0 +1,49 @@
+{
+    "properties": [
+        {
+            "id": "apt-001",
+            "name": "Apartamento Suba Tibabuyes",
+            "location": "Suba Tibabuyes – Bogotá D.C.",
+            "rent": 1400000,
+            "area": 54,
+            "floor": 5,
+            "stratum": 3,
+            "status": "Listo para habitar",
+            "description": "Moderno apartamento en zona céntrica con excelente ubicación y acceso a servicios.",
+            "interiors": {
+                "kitchen": "Cocina integral moderna",
+                "flooring": "Piso en baldosa de primera calidad",
+                "bathrooms": "Enchapado en áreas húmedas"
+            },
+            "amenities": {
+                "building": [
+                    "Portería 24 horas",
+                    "Lobby de acceso",
+                    "Parqueadero inteligente con control de acceso",
+                    "Zonas verdes y de esparcimiento",
+                    "Salón comunal completamente equipado",
+                    "Zona infantil segura"
+                ],
+                "neighborhood": [
+                    "Cerca a colegios de calidad",
+                    "Supermercados y centros comerciales",
+                    "Acceso a transporte público (SITP, Transmilenio)",
+                    "Clínicas y hospitales cercanos",
+                    "Zona comercial variada",
+                    "Parques y espacios recreativos"
+                ]
+            },
+            "images": [
+                "images/apartment-01.jpg",
+                "images/apartment-02.jpg",
+                "images/apartment-03.jpg",
+                "images/apartment-04.jpg"
+            ],
+            "contact": {
+                "advisor": "Carlos Mendez",
+                "phone": "+57 300 123 4567",
+                "email": "carlos@realestate.com"
+            }
+        }
+    ]
+}

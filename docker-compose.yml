@@ -1,0 +1,57 @@
+# Docker Compose para desarrollo y producción
+version: '3.8'
+
+services:
+  whatsapp-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: whatsapp-selling-bot
+    environment:
+      - NODE_ENV=production
+      - PORT=8080
+    ports:
+      - "8080:8080"
+    volumes:
+      # Persistir sesiones de WhatsApp entre contenedores
+      - whatsapp_sessions:/app/.wwebjs_cache
+      - whatsapp_auth:/app/.wwebjs_auth
+      - bot_logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "node", "-e", "console.log('OK')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - bot_network
+
+  # Opcional: Monitoreo con Prometheus
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - bot_network
+    restart: unless-stopped
+
+volumes:
+  whatsapp_sessions:
+    driver: local
+  whatsapp_auth:
+    driver: local
+  bot_logs:
+    driver: local
+  prometheus_data:
+    driver: local
+
+networks:
+  bot_network:
+    driver: bridge
