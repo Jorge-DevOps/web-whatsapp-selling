@@ -70,9 +70,7 @@ export class Handlers {
 
 🍳 Cocina: ${kitchen}
 🪵 Pisos: ${flooring}
-🚿 Baños: ${bathrooms}
-
-✨ Acabados de primera calidad con materiales duraderos`
+🚿 Baños: ${bathrooms}`
         );
     }
 
@@ -142,7 +140,7 @@ Para programar una visita, envíanos:
 📞 Número telefónico  
 🕒 Fecha y hora preferida  
 
-✅ Nuestro equipo confirmará tu cita`
+✅ Te confirmaremos tu cita`
         );
     }
 
