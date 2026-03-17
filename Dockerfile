@@ -20,9 +20,7 @@ RUN apk add --no-cache \
     dumb-init \
     chromium \
     ca-certificates \
-    ttf-dejavu \
-    font-noto \
-    noto-emoji
+    ttf-dejavu
 
 # Configurar variables de entorno para Puppeteer
 ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
