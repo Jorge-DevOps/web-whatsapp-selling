@@ -16,20 +16,25 @@ export class Handlers {
     }
 
     /**
-     * Opción 1: Conocer el valor
+     * Opción 1: Iniciar postulación
      */
     static handleOption1() {
-        const property = this.getMainProperty();
         return (
-            `💰 *VALOR DEL ARRIENDO*
+            `🧵✨ *HILOS MAGICOS* ✨🧵
 
-🏷️ Canon mensual: *${MessageFormatter.formatCOP(property.rent)}*
+📍 Centro comercial Cedritos calle 151
+🏆 Más de 30 años ofreciendo servicios de modistería, confección y arreglos a medida
+🗺️ Maps:
+https://www.google.com/maps/place/Hilos+M%C3%A1gicos/data=!4m2!3m1!1s0x0:0xe0fd35da96254df3?sa=X&ved=1t:2428&ictx=111
 
-ℹ️ *La administración está incluida*
+📋 *POSTULACIÓN DE CANDIDATOS*
 
-🏢 Piso: ${property.floor}
-📊 Estrato: ${property.stratum}
-✅ Estado: ${property.status}`
+Vamos a recopilar tu información en un formulario guiado.
+
+✅ Te haremos una sola pregunta a la vez.
+✅ Validaremos los datos necesarios antes de continuar.
+
+Si deseas cancelar en cualquier momento, escribe *0* para volver al menú principal.`
         );
     }
 
@@ -167,23 +172,33 @@ Domingo a domingo | 9:00 AM – 8:00 PM
         return (
             `🛡️ *REQUISITOS PARA ARRENDAR EL INMUEBLE*
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━
 *🏠 SEGURO DE ARRENDAMIENTO (OBLIGATORIO)*
+El trámite del seguro lo realiza el interesado, y la aseguradora valida los siguientes aspectos:
 
-✅ Estudio y aprobación por aseguradora
-✅ Cubre canon de arrendamiento
+1️⃣ Identidad y legalidad
+2️⃣ Ingresos y capacidad de pago
+3️⃣ Historial crediticio
+4️⃣ Actividad económica
+5️⃣ Uso del inmueble
+
+🏢 Aseguradoras aceptadas:
+Seguros Mundial, Seguros Bolívar o Seguros SURA
+
+🛡️ El Seguro de Arrendamiento:
+✅ Cubre el canon de arrendamiento
 ✅ Cubre posibles daños al inmueble
 ✅ Respalda el proceso legal en caso de incumplimiento
 
 ⚠️ *Sin aprobación del seguro no es posible continuar con el proceso.*
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━
 *📄 DOCUMENTOS BÁSICOS*
 
 🪪 Copia de la cédula de ciudadanía (ambas caras)
 📞 Referencias personales y laborales (mínimo 2)
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━
 *💼 SI ES EMPLEADO*
 
 💼 Carta laboral (cargo, tipo de contrato, antigüedad y salario)
@@ -192,7 +207,7 @@ Domingo a domingo | 9:00 AM – 8:00 PM
 📞 Referencia personal (nombre y teléfono)
 📞 Referencia laboral o comercial
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━
 *🏢 SI ES INDEPENDIENTE*
 
 🧾 RUT
@@ -201,7 +216,7 @@ Domingo a domingo | 9:00 AM – 8:00 PM
 💸 Extractos bancarios (últimos 3–6 meses)
 🧾 Declaración de renta (si declara)
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+━━━━━━━━━━━━━━━━━
 ✍️ *Autorización para tratamiento de datos personales*`
         );
     }
@@ -211,45 +226,14 @@ Domingo a domingo | 9:00 AM – 8:00 PM
      */
     static handleOption11() {
         return (
-            `📋 *INICIAR PROCESO DE ARRENDAMIENTO*
+            `📋 *POSTULACIÓN DE CANDIDATOS*
 
-Para comenzar el proceso de arrendamiento, necesitamos que proporciones:
+Vamos a recopilar tu información en un formulario guiado.
 
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-*🏠 SEGURO DE ARRENDAMIENTO*
+✅ Te haremos una sola pregunta a la vez.
+✅ Validaremos los datos necesarios antes de continuar.
 
-✅ Estudio y aprobación del seguro de arrendamiento (OBLIGATORIO)
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-*📄 DOCUMENTOS DE IDENTIDAD*
-
-🪪 Cédula de ciudadanía (copias ambas caras)
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-*📞 REFERENCIAS*
-
-👥 Referencias personales (mínimo 2)
-   - Nombre completo
-   - Teléfono de contacto
-
-👔 Referencias laborales (mínimo 2)
-   - Nombre completo
-   - Teléfono de contacto
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-*💼 SI SOS EMPLEADO*
-
-💼 Carta laboral (cargo, tipo de contrato, antigüedad y salario)
-💸 Últimos 3 desprendibles de nómina
-🧾 Extractos bancarios (últimos 3 meses)
-
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-✉️ *Por favor, envía los documentos digitalizados (PDF o imágenes claras)*
-
-📧 Nuestro equipo procesará tu solicitud lo antes posible.
-
-🕘 Tiempo estimado de respuesta: 3-5 días hábiles`
+Si deseas cancelar en cualquier momento, escribe *0* para volver al menú principal.`
         );
     }
 

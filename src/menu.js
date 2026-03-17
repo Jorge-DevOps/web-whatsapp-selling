@@ -5,37 +5,33 @@
 export class Menu {
     static mainMenu() {
         return `
-🏡 APARTAMENTO EN ARRIENDO
-Suba Tibabuyes – Bogotá D.C.
+🧵✨ *HILOS MAGICOS* ✨🧵
+📋 PROCESO DE SELECCIÓN - MODISTERÍA
 
 Selecciona una opción escribiendo el número:
 
-1️⃣  Conocer el valor
-2️⃣  Ver fotos
-3️⃣  Información general
-4️⃣  Interiores
-5️⃣  Zonas comunes
-6️⃣  Atributos del sector
-7️⃣  Ubicación
-8️⃣  Agendar visita
-9️⃣  Hablar con el dueño
-🔟 Requisitos del arrendatario
-1️⃣1️⃣ Iniciar proceso de arrendamiento
-0️⃣  Volver al menú principal
+1️⃣  Iniciar postulación
+0️⃣  Ver menú principal
 
 Escriba el número de su opción:`;
     }
 
     static welcomeMessage() {
         return `
-Hola, tenemos un apartamento disponible en Suba Tibabuyes con excelentes características y ubicación estratégica.
-¿Te gustaría conocer más detalles? Escribe cualquier cosa para continuar.`;
+🧵✨ *Bienvenido a Hilos Magicos* ✨🧵
+
+📍 Ubicado en Centro comercial Cedritos calle 151
+🏆 Más de 30 años ofreciendo servicios de modistería, confección y arreglos a medida
+🗺️ Maps:
+https://www.google.com/maps/place/Hilos+M%C3%A1gicos/data=!4m2!3m1!1s0x0:0xe0fd35da96254df3?sa=X&ved=1t:2428&ictx=111
+
+👋 Escribe cualquier cosa para continuar.`;
     }
 
     static invalidOptionMessage() {
         return `
 ⚠️  Opción no válida.
-Por favor, escribe un número del 0 al 11 según el menú.`;
+Por favor, escribe 1 para iniciar la postulación o 0 para volver al menú.`;
     }
 
     static backToMenuMessage() {
