@@ -374,7 +374,19 @@ function getRetryMessageForStep(step) {
 const client = new Client({
     authStrategy: new LocalAuth({
         clientId: 'selling-bot'
-    })
+    }),
+    puppeteer: {
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium-browser',
+        headless: true,
+        args: [
+            '--no-sandbox',
+            '--disable-setuid-sandbox',
+            '--disable-gpu',
+            '--single-process',
+            '--no-first-run',
+            '--no-default-browser-check'
+        ]
+    }
 });
 
 // Gestor de sesiones

@@ -15,8 +15,18 @@ FROM node:22-alpine
 
 WORKDIR /app
 
-# Instalar dumb-init para manejo correcto de señales
-RUN apk add --no-cache dumb-init
+# Instalar dependencias de sistema incluidas Chromium, dumb-init y librerías necesarias
+RUN apk add --no-cache \
+    dumb-init \
+    chromium \
+    ca-certificates \
+    ttf-dejavu \
+    font-noto \
+    noto-emoji
+
+# Configurar variables de entorno para Puppeteer
+ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
 
 # Copiar node_modules desde builder
 COPY --from=builder /app/node_modules ./node_modules
