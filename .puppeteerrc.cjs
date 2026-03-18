@@ -3,7 +3,7 @@
  */
 module.exports = {
     // Usar Chromium en lugar de descargar Chrome
-    executablePath: '/usr/bin/chromium-browser',
+    executablePath: '/usr/bin/chromium',
 
     // Configuración para ejecutarse en Docker/contenedor
     skipChromeDownload: true,
@@ -15,9 +15,12 @@ module.exports = {
     launchArgs: [
         '--no-sandbox',
         '--disable-setuid-sandbox',
-        '--disable-gpu',
-        '--single-process',
         '--no-first-run',
-        '--no-default-browser-check'
+        '--no-default-browser-check',
+        '--disable-dev-shm-usage',
+        '--disable-gpu',
+        '--disable-software-rasterizer',
+        '--disable-web-security',
+        '--disable-features=TranslateUI'
     ]
 };

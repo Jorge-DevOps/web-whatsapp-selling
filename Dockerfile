@@ -1,67 +1,67 @@
-# Stage 1: Build
-FROM node:22-alpine AS builder
+# Imagen base slim con Node.js 22 (estable)
+FROM node:22-slim
 
-WORKDIR /app
+# Metadatos
+LABEL maintainer="WhatsApp Bot" \
+    version="1.0" \
+    description="Bot conversacional para WhatsApp - Gestión de inmuebles"
 
-# Copiar archivos de dependencias
-COPY package*.json ./
+# Configurar variables de entorno
+ENV TZ=America/Bogota \
+    NODE_ENV=production \
+    NODE_OPTIONS=--no-warnings \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium \
+    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    WDM_LOCAL=1
 
-# Instalar dependencias
-RUN npm ci --only=production && \
-    npm cache clean --force
-
-# Stage 2: Runtime
-FROM node:22-alpine
-
-WORKDIR /app
-
-# Instalar dependencias de sistema incluidas Chromium, dumb-init y librerías necesarias
-RUN apk add --no-cache \
+# Instalar dependencias del sistema en una sola capa
+RUN apt-get update && apt-get install -y --no-install-recommends \
     dumb-init \
     chromium \
     ca-certificates \
-    ttf-dejavu
+    fonts-dejavu \
+    libxss1 \
+    libnss3 \
+    fonts-liberation \
+    xdg-utils \
+    wget \
+    curl \
+    # Limpiar cache de apt
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Configurar variables de entorno para Puppeteer
-ENV PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser \
-    PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true
+# Crear usuario no root
+RUN useradd --create-home --shell /bin/bash nodejs
 
-# Copiar node_modules desde builder
-COPY --from=builder /app/node_modules ./node_modules
+# Directorio de trabajo
+WORKDIR /app
 
-# Copiar archivos de dependencias
+# Copiar e instalar dependencias primero (mejor cache de Docker)
 COPY package*.json ./
+RUN npm ci --only=production \
+    && npm cache clean --force
 
-# Copiar código fuente
-COPY src ./src
+# Copiar código fuente con permisos correctos
+COPY --chown=nodejs:nodejs src ./src
+COPY --chown=nodejs:nodejs .puppeteerrc.cjs .env* ./
 
-# Copiar datos de configuración
-COPY docker-compose.yml ./
-COPY .env* ./
+# Crear carpetas necesarias con permisos correctos
+RUN mkdir -p /app/logs /app/.wwebjs_cache \
+    && chown -R nodejs:nodejs /app \
+    && chmod -R 755 /app
 
-# Crear carpetas necesarias con permisos adecuados
-RUN mkdir -p /app/logs /app/.wwebjs_cache && \
-    chmod -R 755 /app && \
-    rm -rf /tmp/* /var/tmp/*
-
-# Crear usuario no-root para mayor seguridad
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001
-
-# Cambiar propiedad de la carpeta
-RUN chown -R nodejs:nodejs /app
-
+# Cambiar a usuario no root
 USER nodejs
 
 # Exponer puerto (para futuros webhooks)
 EXPOSE 8080
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD node -e "try { require('fs').accessSync('./src/index.js'); process.exit(0); } catch(e) { process.exit(1); }"
+# Health check para verificar que el bot está corriendo
+HEALTHCHECK --interval=30s --timeout=10s --start-period=90s --retries=3 \
+    CMD pgrep -f "node src/index.js" >/dev/null || exit 1
 
-# Usar dumb-init para ejecutar el proceso
+# Usar dumb-init para ejecutar el proceso correctamente
 ENTRYPOINT ["dumb-init", "--"]
 
-# Comando para ejecutar el bot
+# Ejecutar el bot
 CMD ["node", "src/index.js"]

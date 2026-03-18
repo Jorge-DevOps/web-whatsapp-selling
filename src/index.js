@@ -376,15 +376,18 @@ const client = new Client({
         clientId: 'selling-bot'
     }),
     puppeteer: {
-        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium-browser',
+        executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || '/usr/bin/chromium',
         headless: true,
         args: [
             '--no-sandbox',
             '--disable-setuid-sandbox',
-            '--disable-gpu',
-            '--single-process',
             '--no-first-run',
-            '--no-default-browser-check'
+            '--no-default-browser-check',
+            '--disable-dev-shm-usage',
+            '--disable-gpu',
+            '--disable-software-rasterizer',
+            '--disable-web-security',
+            '--disable-features=TranslateUI'
         ]
     }
 });
@@ -417,6 +420,24 @@ client.on('ready', () => {
 
     // Cargar la lista de números bloqueados al iniciar
     reloadBlockedNumbers();
+});
+
+/**
+ * Evento: Cliente desconectado
+ */
+client.on('disconnected', (reason) => {
+    console.log(`⚠️  Bot desconectado: ${reason}`);
+});
+
+/**
+ * Evento: Error del cliente
+ */
+client.on('error', (error) => {
+    console.error('❌ Error del cliente:', error);
+    if (error.message && error.message.includes('SIGTERM')) {
+        console.log('📴 Recibida señal de cierre');
+        process.exit(0);
+    }
 });
 
 /**
@@ -826,7 +847,15 @@ setInterval(() => {
 /**
  * Iniciar cliente
  */
-client.initialize();
+(async () => {
+    try {
+        console.log('🚀 Iniciando bot...');
+        await client.initialize();
+    } catch (error) {
+        console.error('❌ Error al inicializar el cliente:', error);
+        process.exit(1);
+    }
+})();
 
 /**
  * Manejo de señales de salida
